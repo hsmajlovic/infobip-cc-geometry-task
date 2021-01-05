@@ -1,12 +1,17 @@
 import turtle
+import math
+
+
+from constants import DEFAULT_COLOR
 
 
 turtle.speed(0)
-scale_factor: float = 10
+scale_factor: float = 50
 
 
 def lift_brush(func: object, *args, **kwargs) -> object:
     def _func(*args, **kwargs):
+        turtle.up()
         func(*args, **kwargs)
         turtle.up()
 
@@ -20,7 +25,8 @@ def move_brush(to_point: tuple):
 
 @lift_brush
 def draw_circle(circle_center: tuple):
-    move_brush(circle_center)
+    circle_bottom: tuple = (circle_center[0], circle_center[1] - 1)
+    move_brush(circle_bottom)
     turtle.down()
     turtle.circle(scale_factor)
 
@@ -39,7 +45,7 @@ def draw_dot(dot: tuple):
 
 @lift_brush
 def draw_intersections(intersections: dict):
-    for _, intersection_points in intersections.items():
-        if intersection_points:
-            for point in intersection_points:
-                draw_dot(point)
+    points = {point for _, intersection_tuples in intersections.items() if intersection_tuples
+              for points_tuple in intersection_tuples for point in points_tuple}
+    for point in points:
+        draw_dot(point)

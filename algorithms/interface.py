@@ -33,21 +33,13 @@ def rotors_quadratic_slowest(rotors: list) -> list:
     
 
 @tictoc
-def rotors_quadratic_intermediate(rotors: list) -> list:
-    return rotors_finder(
-        rotors=rotors,
-        intersections_finder=find_intersections_fast)
-
-
-@tictoc
-def rotors_quadratic_faster(rotors: list) -> list:
-    return rotors_finder(
-        rotors=rotors,
-        intersections_finder=find_intersections_naive)
-
-
-@tictoc
 def rotors_nlogn(rotors: list) -> list:
     return rotors_finder(
         rotors=rotors,
         intersections_finder=find_intersections_fast)
+
+
+Methods: dict = {
+    # 'quadratic_slowest': rotors_quadratic_slowest,
+    'nlogn': rotors_nlogn
+}

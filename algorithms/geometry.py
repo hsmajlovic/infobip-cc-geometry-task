@@ -42,7 +42,8 @@ def rotors_intersect(rotor_center_1: tuple, rotor_center_2: tuple) -> list:
         x4: float = x2 - h * (y1 - y0) / d
         y4: float = y2 + h * (x1 - x0) / d
         
-        return ((x3, y3), (x4, y4))
+        return ((round(x3, -int(math.log10(PRECISION))), round(y3, -int(math.log10(PRECISION)))),
+                (round(x4, -int(math.log10(PRECISION))), round(y4, -int(math.log10(PRECISION)))))
 
 
 def segments_overlap(segment_1: tuple, segment_2: tuple) -> bool:

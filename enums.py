@@ -1,13 +1,12 @@
-from algorithms.interface import (
-    rotors_nlogn,
-    rotors_quadratic_faster,
-    rotors_quadratic_intermediate,
-    rotors_quadratic_slowest)
+from enum import Enum
 
 
-Methods: dict = {
-    'quadratic_slowest': rotors_quadratic_slowest
-    # 'quadratic_intermediate': rotors_quadratic_intermediate
-    # 'quadratic_faster': rotors_quadratic_faster
-    # 'nlogn': rotors_nlogn
-}
+class EventPointType(Enum):
+    upper = 1
+    intersection = 2
+    bottom = 3
+
+
+class SemiCircleSide(Enum):
+    left = 1
+    right = 2

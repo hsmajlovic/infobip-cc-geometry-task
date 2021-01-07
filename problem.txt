@@ -6,5 +6,6 @@ your goal is to find the sorted list of time intervals in radians (within a [0, 
 Each segment is given as a pair of coordinates of its lower endpoint (rotation center).
 *Example I/O here*
 
+Precision: 1e-5
 Expected runtime complexity: O(nlogn)
 Worst case complexity: O(n ** 2) - (NOT nlog(n + k), where k is the number of intersections!!!)

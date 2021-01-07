@@ -4,7 +4,7 @@ Repository contains computational geometry task that was given at Infobip Coding
 To generate new test case:
 ```python3 tests/test_generator.py <test_case_size>```
 
-To benchmark all algorithms:
+To benchmark the algorithms:
 ```pypy rotors.py <input_test_case_path> <output_test_case_path> <method>```
 
 Available `method` args:

@@ -11,4 +11,4 @@ Available `method` args:
   - `all`: Runs all implemented algorithms
   - `quadratic`: Runs a O(n^2) solution
   - `expected_nlogn`: Runs a expected O(nlogn) solution (worst case O(n^2))
-  - `nlogn`: Runs worst case nlog(n + k) solution, where k is the number of intersections.
+  - `nlogn`: Runs worst case nlog(n + k) solution, where k is the number of intersections. (NOT DONE YET!)

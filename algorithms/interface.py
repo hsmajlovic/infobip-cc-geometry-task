@@ -1,13 +1,12 @@
 from utils import tictoc
 from algorithms.geometry import find_busy_periods, merge_segments
-from algorithms.intersections import find_intersections_naive, find_intersections_fast
+from algorithms.intersections import find_intersections_naive, find_intersections_intermediate, find_intersections_fast
 
 
 def rotors_finder(
         rotors: list,
-        intersections_finder: object) -> list:
-    verbose: bool = len(rotors) < 2 ** 4
-    
+        intersections_finder: object,
+        verbose: bool = False) -> list:
     intersections: dict = intersections_finder(rotors)
     busy_periods: list = find_busy_periods(intersections)
     merged_busy_periods: list = merge_segments(busy_periods)
@@ -26,10 +25,17 @@ def rotors_finder(
 
 
 @tictoc
-def rotors_quadratic_slowest(rotors: list) -> list:
+def rotors_quadratic(rotors: list) -> list:
     return rotors_finder(
         rotors=rotors,
         intersections_finder=find_intersections_naive)
+
+
+@tictoc
+def rotors_expected_nlogn(rotors: list) -> list:
+    return rotors_finder(
+        rotors=rotors,
+        intersections_finder=find_intersections_intermediate)
     
 
 @tictoc
@@ -40,6 +46,7 @@ def rotors_nlogn(rotors: list) -> list:
 
 
 Methods: dict = {
-    # 'quadratic_slowest': rotors_quadratic_slowest,
-    'nlogn': rotors_nlogn
+    'quadratic': rotors_quadratic,
+    'expected_nlogn': rotors_expected_nlogn,
+    # 'nlogn': rotors_nlogn
 }

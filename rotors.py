@@ -12,7 +12,7 @@ def main(input_path: str, output_path: str, rotors_func: object):
 
 
 if __name__ == '__main__':
-    input_path, output_path, method = 'tests/data/input_3.txt', 'tests/data/output_3.txt', 'all'  # ys.argv[1:]
+    input_path, output_path, method = sys.argv[1:]
     
     if method == 'all':
         for method_name, rotors_func in Methods.items():

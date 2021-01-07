@@ -1,21 +1,12 @@
 import heapq
 from collections import defaultdict
-
-from sortedcontainers import SortedList
+from functools import partial
 
 import shared
 from algorithms.geometry import rotors_intersect, ori
 from structures.event_point import EventPoint
 from structures.semi_circle import SemiCircle
 from enums import EventPointType, SemiCircleSide
-
-
-def quadratic_generator(rotors: list):
-    for i in range(len(rotors)):
-        for j in range(len(rotors)):
-            if i == j:
-                continue
-            yield (rotors[i], rotors[j])
 
 
 def form_periods(pairs) -> dict:
@@ -26,15 +17,47 @@ def form_periods(pairs) -> dict:
         if intersection_points:
             intersections[pair[0]].append(
                 intersection_points if ori(pair[0], *intersection_points) < 0 else tuple(reversed(intersection_points)))
+            intersections[pair[1]].append(
+                intersection_points if ori(pair[1], *intersection_points) < 0 else tuple(reversed(intersection_points)))
     
     return intersections
 
 
-def find_intersections_naive(rotors: list) -> dict:
-    return form_periods(quadratic_generator(rotors))
+def quadratic_generator(rotors: list):
+    for i in range(len(rotors)):
+        for j in range(i + 1, len(rotors)):
+            yield (rotors[i], rotors[j])
 
 
-def find_intersections_fast(rotors: list) -> dict:
+def intermediate_generator(rotors: list):
+    event_points: list = []
+    candidates_set = set()
+
+    for rotor_center in rotors:
+        heapq.heappush(event_points, EventPoint(
+            coordinates=(rotor_center[0], rotor_center[1] + 1),
+            affiliations=[rotor_center],
+            event_type=EventPointType.upper))
+        heapq.heappush(event_points, EventPoint(
+            coordinates=(rotor_center[0], rotor_center[1] - 1),
+            affiliations=[rotor_center],
+            event_type=EventPointType.bottom))
+    
+    while event_points:
+        next_event_point: EventPoint = heapq.heappop(event_points)
+        affiliated_circle: tuple = next_event_point.affiliations[0]
+        
+        if next_event_point.event_type == EventPointType.upper:
+            for candidate_circle in candidates_set:
+                yield (affiliated_circle, candidate_circle)
+            candidates_set.add(affiliated_circle)
+        
+        if next_event_point.event_type == EventPointType.bottom:
+            candidates_set.remove(affiliated_circle)
+
+def fast_generator(rotors: list):
+    from sortedcontainers import SortedList
+
     intersection_pairs = set()
     intersections_set = set()
     status_array = SortedList()
@@ -80,7 +103,8 @@ def find_intersections_fast(rotors: list) -> dict:
             left_semi_circle_position=left_semi_circle_position,
             deletion=next_event_point.event_type == EventPointType.bottom)
         
-    return form_periods(intersection_pairs)
+    for pair in intersection_pairs:
+        yield pair
 
 
 def refine_intersections(
@@ -117,3 +141,12 @@ def refine_intersections(
                     event_type=EventPointType.intersection))
                 intersection_pairs.add((left_semi.circle_center, right_semi.circle_center))
                 intersection_pairs.add((right_semi.circle_center, left_semi.circle_center))
+
+
+def find_intersections(rotors: list, pairs_generator) -> dict:
+    return form_periods(pairs_generator(rotors))
+
+
+find_intersections_naive = partial(find_intersections, pairs_generator=quadratic_generator)
+find_intersections_intermediate = partial(find_intersections, pairs_generator=intermediate_generator)
+find_intersections_fast = partial(find_intersections, pairs_generator=fast_generator)

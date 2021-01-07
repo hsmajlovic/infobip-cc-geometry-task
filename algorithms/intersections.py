@@ -110,7 +110,7 @@ def fast_generator(rotors: list):
 def refine_intersections(
         intersection_pairs: set,
         intersections_set: set,
-        status_array: SortedList,
+        status_array: object,
         event_points: list,
         left_semi_circle_position: int,
         deletion: bool) -> set:

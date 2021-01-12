@@ -4,7 +4,18 @@ Given n rotating line segments of length 1m in a plane and the following constra
 your goal is to find the sorted list of time intervals in radians (within a [0, 2pi] period) in which any of the segments is within the rotation circle of any other line segment.
 
 Each segment is given as a pair of coordinates of its lower endpoint (rotation center).
-*Example I/O here*
+
+Example input 1:
+tests/data/input_2.txt
+
+Example output 1:
+tests/data/output_2_quadratic_slowest.txt
+
+Example input 2:
+tests/data/input_3.txt
+
+Example output 2:
+tests/data/output_3_quadratic_slowest.txt
 
 Precision: 1e-5
 Expected runtime complexity: O(nlogn)

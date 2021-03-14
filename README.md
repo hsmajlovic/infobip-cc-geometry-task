@@ -1,5 +1,5 @@
-# infobip-cc-geometry-task
-Repository contains computational geometry task that was a candidate for Infobip Coding Challenge in January 2021.
+# Infobip Coding Challenge - Computational geometry problem
+Repository contains computational geometry problem that was a candidate for Infobip Coding Challenge in January 2021.
 
 ## Problem
 

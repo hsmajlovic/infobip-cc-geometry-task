@@ -1,5 +1,5 @@
 # infobip-cc-geometry-task
-Repository contains computational geometry task that was given at Infobip Coding Challenge in January 2021.
+Repository contains computational geometry task that was a candidate for Infobip Coding Challenge in January 2021.
 
 To generate new test case:
 ```python3 tests/test_generator.py <test_case_size>```

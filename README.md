@@ -4,8 +4,9 @@ Repository contains computational geometry problem that was a candidate for Info
 ## Problem
 
 Given n rotating line segments of length 1m in a plane and the following constraints:
-    - Each line segment kicks off its rotation from a vertical position and rotates around its lower endpoint.
-    - Each line segments makes a full circle in 2pi seconds.
+- Each line segment kicks off its rotation from a vertical position and rotates around its lower endpoint.
+- Each line segments makes a full circle in 2pi seconds.
+
 your goal is to find the sorted list of time intervals in radians (within a [0, 2pi] period) in which any of the segments is within the rotation circle of any other line segment.
 
 Each segment is given as a pair of coordinates of its lower endpoint (rotation center).
